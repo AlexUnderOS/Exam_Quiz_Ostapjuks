@@ -1928,13 +1928,24 @@ MonoBehaviour:
     - answer: My name is Alex
       isCorrect: 1
     - answer: I dkn
-      isCorrect: 0
+      isCorrect: 1
     - answer: Why are you asking?
       isCorrect: 1
-  answerButton0: {fileID: 2067912726}
-  answerButton1: {fileID: 704565280}
-  answerButton2: {fileID: 376304781}
-  answerButton3: {fileID: 658026662}
+  - fact: "\u0444\u044B\u0432\u0444\u0432\u044B\u0444\u044B\u0432"
+    answers:
+    - answer: "\u0432\u0444\u043F"
+      isCorrect: 0
+    - answer: "\u0444\u044B\u0432\u0444\u0432\u0432\u0432"
+      isCorrect: 0
+    - answer: "\u043F\u043F\u043F"
+      isCorrect: 0
+    - answer: "\u0444\u044B\u0432"
+      isCorrect: 1
+  answerButtons:
+  - {fileID: 2067912726}
+  - {fileID: 704565280}
+  - {fileID: 376304781}
+  - {fileID: 658026662}
   factDisplayText: {fileID: 1145711912}
 --- !u!4 &1706690111
 Transform:
