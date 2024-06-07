@@ -1,3 +1,5 @@
+using MaterialUI;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,11 +65,19 @@ public class UIManager : MonoBehaviour
         foreach (Button button in answerButtons)
         {
             button.GetComponent<Image>().color = deselectColor;
+            button.GetComponent<RippleConfig>().enabled = true;
         }
     }
 
     public void SetButtonColor(int index, Color color)
     {
+        RippleConfig rpc = answerButtons[index].GetComponent<RippleConfig>();
+
+        if (rpc.enabled)
+            rpc.enabled = false;
+        else
+            rpc.enabled = true;
+
         answerButtons[index].GetComponent<Image>().color = color;
     }
 
