@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void InitializeAnswerButtons(System.Action<int> onAnswerSelected)
+    public void InitializeAnswerButtons(Action<int> onAnswerSelected)
     {
         answerTexts = new Text[answerButtons.Length];
 

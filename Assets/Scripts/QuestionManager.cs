@@ -7,6 +7,7 @@ public class QuestionManager : MonoBehaviour
     public Question[] questions;
     public Color selectColor;
     public Color deselectColor;
+    public QuizResults quizResults;
 
     private List<int> selectedAnswers;
     private int currentQuestionIndex = 0;
@@ -32,6 +33,7 @@ public class QuestionManager : MonoBehaviour
         if (currentQuestionIndex >= questions.Length)
         {
             Debug.Log("No more questions available.");
+            quizResults.ShowResultsPanel(); 
             return;
         }
 
@@ -93,5 +95,15 @@ public class QuestionManager : MonoBehaviour
     private void UpdateScoreDisplay()
     {
         Debug.Log("Score: " + score);
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public int GetScoreLength()
+    {
+        return questions.Length;
     }
 }
