@@ -8,11 +8,17 @@ public class QuestionManager : MonoBehaviour
 {
     public Question[] questions;
     public Button[] answerButtons;
+    public Slider timerSlider;
+
+    public Color selectColor;
+    public Color deselectColor;
 
     private Text[] answerTexts;
     private List<int> selectedAnswers;
     private int currentQuestionIndex = 0;
     private int score = 0;
+    public float timerDuration = 10f;
+    private float timeRemaining;
 
     private Question currentQuestion;
 
@@ -26,7 +32,22 @@ public class QuestionManager : MonoBehaviour
         InitializeAnswerButtons();
         SetCurrentQuestion();
         UpdateScoreDisplay();
+    }
 
+    private void Update()
+    {
+        if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+            timerSlider.value = timeRemaining / timerDuration;
+
+            if (timeRemaining <= 0)
+            {
+                timeRemaining = 0;
+                CheckAnswers();
+                SetCurrentQuestion();
+            }
+        }
     }
 
     private void InitializeAnswerButtons()
@@ -81,6 +102,8 @@ public class QuestionManager : MonoBehaviour
         selectedAnswers.Clear();
         ResetButtonColors();
         currentQuestionIndex++;
+        timeRemaining = timerDuration;
+        timerSlider.value = 1;
     }
 
     private void OnAnswerSelected(int index)
@@ -88,17 +111,15 @@ public class QuestionManager : MonoBehaviour
         if (selectedAnswers.Contains(index))
         {
             selectedAnswers.Remove(index);
-            answerButtons[index].GetComponent<Image>().color = Color.white; // Reset color
+            answerButtons[index].GetComponent<Image>().color = deselectColor; // Reset color
             Debug.Log($"Deselected button {index}");
         }
         else
         {
             selectedAnswers.Add(index);
-            answerButtons[index].GetComponent<Image>().color = Color.green; // Mark as selected
+            answerButtons[index].GetComponent<Image>().color = selectColor; // Mark as selected
             Debug.Log($"Selected button {index}");
         }
-
-        CheckAnswers();
     }
 
     private void CheckAnswers()
@@ -114,18 +135,18 @@ public class QuestionManager : MonoBehaviour
             Debug.Log("Correct Answers!");
             score++;
             UpdateScoreDisplay();
-            SetCurrentQuestion();
         }
-        else if (selectedAnswers.Count > correctAnswers.Count)
+        else
         {
             Debug.Log("Incorrect Answers, try again.");
-            // Reset selection or handle incorrect answers
-            foreach (int index in selectedAnswers)
-            {
-                answerButtons[index].GetComponent<Image>().color = Color.white;
-            }
-            selectedAnswers.Clear();
         }
+
+        foreach (int index in selectedAnswers)
+        {
+            answerButtons[index].GetComponent<Image>().color = deselectColor;
+        }
+
+        selectedAnswers.Clear();
     }
 
     private void UpdateScoreDisplay()
@@ -137,7 +158,7 @@ public class QuestionManager : MonoBehaviour
     {
         foreach (Button button in answerButtons)
         {
-            button.GetComponent<Image>().color = Color.white;
+            button.GetComponent<Image>().color = deselectColor;
         }
     }
 }
