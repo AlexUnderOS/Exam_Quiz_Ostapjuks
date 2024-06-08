@@ -11,6 +11,7 @@ public class QuizResults : MonoBehaviour
     public AudioSource resultSource;
     public AudioClip[] resultClips;
     public GameObject confettiToShow;
+    public Text passedTestsResultText;
 
     public Sprite starSprite;
 
@@ -81,5 +82,6 @@ public class QuizResults : MonoBehaviour
     private void UpdateText()
     {
         scoreText.text = qm.GetScore() + " / " + qm.GetScoreLength() + "!";
+        passedTestsResultText.text = qm.GetResultsLog();
     }
 }

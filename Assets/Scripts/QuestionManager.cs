@@ -14,6 +14,8 @@ public class QuestionManager : MonoBehaviour
     private int score = 0;
     private Question currentQuestion;
 
+    private List<string> resultsLog = new List<string>();
+
     [SerializeField]
     private UIManager uiManager;
     [SerializeField]
@@ -33,7 +35,7 @@ public class QuestionManager : MonoBehaviour
         if (currentQuestionIndex >= questions.Length)
         {
             Debug.Log("No more questions available.");
-            quizResults.ShowResultsPanel(); 
+            quizResults.ShowResultsPanel();
             return;
         }
 
@@ -73,7 +75,8 @@ public class QuestionManager : MonoBehaviour
             .Select(x => x.index)
             .ToList();
 
-        if (correctAnswers.Count == selectedAnswers.Count && correctAnswers.All(selectedAnswers.Contains))
+        bool isCorrect = correctAnswers.Count == selectedAnswers.Count && correctAnswers.All(selectedAnswers.Contains);
+        if (isCorrect)
         {
             Debug.Log("Correct Answers!");
             score++;
@@ -83,6 +86,8 @@ public class QuestionManager : MonoBehaviour
         {
             Debug.Log("Incorrect Answers, try again.");
         }
+
+        LogResult(isCorrect);
 
         foreach (int index in selectedAnswers)
         {
@@ -97,6 +102,17 @@ public class QuestionManager : MonoBehaviour
         Debug.Log("Score: " + score);
     }
 
+    private void LogResult(bool isCorrect)
+    {
+        string result = $"{currentQuestion.GetFact()}: " + (isCorrect ? "Correct" : "Incorrect");
+        resultsLog.Add(result);
+    }
+
+    public string GetResultsLog()
+    {
+        return string.Join("\n", resultsLog);
+    }
+
     public int GetScore()
     {
         return score;
@@ -106,4 +122,5 @@ public class QuestionManager : MonoBehaviour
     {
         return questions.Length;
     }
+
 }
