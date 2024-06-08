@@ -8,6 +8,9 @@ public class QuizResults : MonoBehaviour
     public GridLayoutGroup starContainer;
     public QuestionManager qm;
     public Text scoreText;
+    public AudioSource resultSource;
+    public AudioClip[] resultClips;
+    public GameObject confettiToShow;
 
     public Sprite starSprite;
 
@@ -23,6 +26,7 @@ public class QuizResults : MonoBehaviour
     {
         UpdateText();
         UpdateStarCount();
+        resultSource.Play();
     }
 
     private void UpdateStarCount()
@@ -35,17 +39,24 @@ public class QuizResults : MonoBehaviour
 
         if (percentage >= 75f) // 75%
         {
+            resultSource.clip = resultClips[0];
+            confettiToShow.SetActive(true);
             starCount = 3;
         }
         else if (percentage >= 50f) // 50%
         {
+            resultSource.clip = resultClips[0];
+            confettiToShow.SetActive(true);
             starCount = 2;
         }
         else if (percentage >= 20f) // 20%
         {
+            resultSource.clip = resultClips[1];
             starCount = 1;
-        } else
+        } 
+        else
         {
+            resultSource.clip = resultClips[1];
             starCount = 0;
         }
 
