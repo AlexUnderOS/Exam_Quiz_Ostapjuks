@@ -8639,9 +8639,9 @@ MonoBehaviour:
     answers:
     - answer: "Izvad\u012Bs: 'Tas ir patiess'"
       isCorrect: 1
-    - answer: "Nekas netiks izvad\u012Bts, jo switch nedarbojas ar bool tipiem."
+    - answer: "Nekas netiks izvad\u012Bts, jo switch nedarbojas ar bool tipiem"
       isCorrect: 0
-    - answer: "Kods tiks izpild\u012Bts bez k\u013C\u016Bd\u0101m."
+    - answer: "Kods tiks izpild\u012Bts bez k\u013C\u016Bd\u0101m"
       isCorrect: 1
     - answer: "K\u013C\u016Bdas pazi\u0146ojums"
       isCorrect: 0
