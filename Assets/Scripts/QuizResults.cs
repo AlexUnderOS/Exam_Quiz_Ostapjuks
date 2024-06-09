@@ -1,5 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class QuizResults : MonoBehaviour
@@ -81,7 +80,7 @@ public class QuizResults : MonoBehaviour
 
     private void UpdateText()
     {
-        scoreText.text = qm.GetScore() + " / " + qm.GetScoreLength() + "!";
+        scoreText.text = qm.GetScore() + " / " + qm.GetScoreLength();
         passedTestsResultText.text = qm.GetResultsLog();
     }
 }

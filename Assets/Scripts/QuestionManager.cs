@@ -32,25 +32,26 @@ public class QuestionManager : MonoBehaviour
 
     private void SetCurrentQuestion()
     {
-        if (currentQuestionIndex >= questions.Length)
+        if (currentQuestionIndex < questions.Length)
+        {
+            currentQuestion = questions[currentQuestionIndex];
+            uiManager.DisplayQuestion(currentQuestion);
+
+            selectedAnswers.Clear();
+            uiManager.ResetButtonColors(deselectColor);
+            currentQuestionIndex++;
+
+            timer.StartTimer(() =>
+            {
+                CheckAnswers();
+                SetCurrentQuestion();
+            });
+        }
+        else
         {
             Debug.Log("No more questions available.");
             quizResults.ShowResultsPanel();
-            return;
         }
-
-        currentQuestion = questions[currentQuestionIndex];
-        uiManager.DisplayQuestion(currentQuestion);
-
-        selectedAnswers.Clear();
-        uiManager.ResetButtonColors(deselectColor);
-        currentQuestionIndex++;
-
-        timer.StartTimer(() =>
-        {
-            CheckAnswers();
-            SetCurrentQuestion();
-        });
     }
 
     private void OnAnswerSelected(int index)
@@ -104,13 +105,13 @@ public class QuestionManager : MonoBehaviour
 
     private void LogResult(bool isCorrect)
     {
-        string result = $"{currentQuestion.GetFact()}: " + (isCorrect ? "Correct" : "Incorrect");
+        string result = $"{currentQuestion.GetFact()}: " + (isCorrect ? "\nCorrect" : "\nIncorrect");
         resultsLog.Add(result);
     }
 
     public string GetResultsLog()
     {
-        return string.Join("\n", resultsLog);
+        return string.Join("\n\n", resultsLog);
     }
 
     public int GetScore()
@@ -122,5 +123,4 @@ public class QuestionManager : MonoBehaviour
     {
         return questions.Length;
     }
-
 }
