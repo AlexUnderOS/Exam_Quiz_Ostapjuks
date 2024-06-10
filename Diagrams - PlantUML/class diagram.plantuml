@@ -1,0 +1,116 @@
+@startuml "quiz (class diagram)"
+class QuestionManager {
+  + Question[] questions
+  + Color selectColor
+  + Color deselectColor
+  + QuizResults quizResults
+  - List<int> selectedAnswers
+  - int currentQuestionIndex
+  - int score
+  - Question currentQuestion
+  - List<string> resultsLog
+  - UIManager uiManager
+  - Timer timer
+  - Start()
+  - SetCurrentQuestion()
+  - OnAnswerSelected(int index)
+  - CheckAnswers()
+  - UpdateScoreDisplay()
+  - LogResult(bool isCorrect)
+  + GetResultsLog() : string
+  + GetScore() : int
+  + GetScoreLength() : int
+}
+
+class UIManager {
+  + Text factDisplayText
+  + Button[] answerButtons
+  + Slider timerSlider
+  - Text[] answerTexts
+  + static Instance : UIManager
+  + InitializeAnswerButtons(Action<int> onAnswerSelected)
+  + DisplayQuestion(Question question)
+  + ResetButtonColors(Color deselectColor)
+  + SetButtonColor(int index, Color color)
+  + UpdateTimerSlider(float value)
+}
+
+class Timer {
+  + float duration
+  - float timeRemaining
+  - Action onTimeUp
+  - bool isRunning
+  + StartTimer(Action onTimeUpCallback)
+  + StopTimer()
+  - Update()
+}
+
+class SentenceType {
+  - Text displayText
+  + float delay
+  - Start()
+  - TypeSentence() : IEnumerator
+}
+
+class QuizResults {
+  + GameObject resultsObject
+  + GridLayoutGroup starContainer
+  + QuestionManager qm
+  + Text scoreText
+  + AudioSource resultSource
+  + AudioClip[] resultClips
+  + GameObject confettiToShow
+  + Text passedTestsResultText
+  + Sprite starSprite
+  + ShowResultsPanel()
+  - UpdateResults()
+  - UpdateStarCount()
+  - UpdateText()
+}
+
+class Question {
+  + string fact
+  + Answer[] answers
+  + GetFact() : string
+}
+
+class NavigationManager {
+  + LoadScene(string sceneName)
+  + QuitGame()
+}
+
+class DontDestroyComponents {
+  + static Instance : DontDestroyComponents
+  + Awake()
+}
+
+class ButtonAudioManager {
+  - AudioSource audioSource
+  + AudioClip[] clips
+  - Start()
+  + PlayAudio(int index)
+}
+
+class Answer {
+  + string answer
+  + bool isCorrect
+}
+
+QuestionManager -> UIManager : uses
+QuestionManager -> Timer : uses
+QuestionManager -> QuizResults : uses
+QuizResults -> QuestionManager : uses
+UIManager -> Button : uses
+UIManager -> Slider : uses
+SentenceType -> Text : uses
+QuizResults -> GridLayoutGroup : uses
+QuizResults -> AudioSource : uses
+QuizResults -> AudioClip : uses
+QuizResults -> GameObject : uses
+NavigationManager -> SceneManager : uses
+DontDestroyComponents -> DontDestroyOnLoad : uses
+ButtonAudioManager -> AudioSource : uses
+ButtonAudioManager -> AudioClip : uses
+Question -> Answer : contains
+
+@enduml

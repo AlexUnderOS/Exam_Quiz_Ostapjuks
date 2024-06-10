@@ -1,0 +1,47 @@
+@startuml "quiz (activity diagram)"
+start
+
+:Initialize selectedAnswers list;
+:Initialize UI answer buttons;
+:Call `SetCurrentQuestion` method;
+
+repeat
+    :Set Current Question;
+    if (currentQuestionIndex < questions.Length) then (yes)
+        :Set `currentQuestion`;
+        :Display the question on UI;
+        :Clear `selectedAnswers`;
+        :Reset button colors;
+        :Increment `currentQuestionIndex`;
+        :Start timer;
+        :Callback to Check Answers and Set Current Question;
+    else (no)
+        :Log "No more questions available.";
+        :Show results panel;
+        stop
+    endif
+repeat while (currentQuestionIndex < questions.Length)
+
+:On Answer Selected (on user interaction);
+if (Answer is already selected?) then (yes)
+    :Remove answer from selectedAnswers;
+    :Set button color to deselectColor;
+else (no)
+    :Add answer to selectedAnswers;
+    :Set button color to selectColor;
+endif
+
+:Check Answers;
+if (Answers are correct?) then (yes)
+    :Log "Correct Answers!";
+    :Increment score;
+    :Update score display;
+else (no)
+    :Log "Incorrect Answers, try again.";
+endif
+:Log result (correct/incorrect);
+:Clear selected answers;
+:Reset button colors;
+
+stop
+@enduml
