@@ -69,8 +69,15 @@ un, kad tas beidzas, spēlētājs tiek pārcelts uz citu jautājumu.
 
 # UML diagrammas
 
+
 ### Activity Diagram
-![activity diagram](Diagrams - PlantUML/out/activity diagram/quiz (activity diagram).png)
+
+![activity diagram](Diagrams-PlantUML/activity_diagram.png)
+
+### Class Diagram
+
+![class diagram](Diagrams-PlantUML/class_diagram.png)
+
 
 ## Autors
 
