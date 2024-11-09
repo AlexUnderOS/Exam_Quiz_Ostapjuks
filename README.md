@@ -27,7 +27,7 @@
 
 ### Sākums
 Nospiežam pogu `SĀKT`
-
+(Es zinu, ka ar izejas pogu ir gramatiska kļūda, bet nu.. kas ir tas ir :))
 ![start_btn](readme/main_menu-startbtn.PNG)
 
 ---
